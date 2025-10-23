@@ -208,17 +208,17 @@ def TicTacToe():
         count = 0
 
         #creating buttons + customizing them
-        b1 = Button(TicTacToe, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b1))
-        b2 = Button(TicTacToe, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b2))
-        b3 = Button(TicTacToe, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b3))
+        b1 = Button(TicTacToe, text=" ", font=("fixedsys 20 bold"), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b1))
+        b2 = Button(TicTacToe, text=" ", font=("fixedsys 20 bold"), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b2))
+        b3 = Button(TicTacToe, text=" ", font=("fixedsys 20 bold"), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b3))
 
-        b4 = Button(TicTacToe, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b4))
-        b5 = Button(TicTacToe, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b5))
-        b6 = Button(TicTacToe, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b6))
+        b4 = Button(TicTacToe, text=" ", font=("fixedsys 20 bold"), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b4))
+        b5 = Button(TicTacToe, text=" ", font=("fixedsys 20 bold"), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b5))
+        b6 = Button(TicTacToe, text=" ", font=("fixedsys 20 bold"), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b6))
 
-        b7 = Button(TicTacToe, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b7))
-        b8 = Button(TicTacToe, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b8))
-        b9 = Button(TicTacToe, text=" ", font=("Helvetica", 20), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b9))
+        b7 = Button(TicTacToe, text=" ", font=("fixedsys 20 bold"), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b7))
+        b8 = Button(TicTacToe, text=" ", font=("fixedsys 20 bold"), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b8))
+        b9 = Button(TicTacToe, text=" ", font=("fixedsys 20 bold"), height=3, width=6, bg="SystemButtonFace", command=lambda: b_click(b9))
 
         #making grid for buttons
         b1.grid(row=0, column=0)
