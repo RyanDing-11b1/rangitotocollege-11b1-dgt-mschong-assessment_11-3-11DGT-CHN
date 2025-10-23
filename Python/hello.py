@@ -465,20 +465,20 @@ def Blackjack():
                 global dealer_card1, dealer_card2, dealer_card3, dealer_card4, dealer_card5
                 
                 if dealer_spot == 0:
-                    dealer_label_1.config(image=dealer_card1)
+                    dealer_label_1.config(text=dealer_card[0])
                     #increment player spot counter
                     dealer_spot += 1
                 elif dealer_spot == 1:
-                    dealer_label_2.config(text=dealer_card2)
+                    dealer_label_2.config(text=dealer_card[0])
                     dealer_spot += 1
                 elif dealer_spot == 2:
-                    dealer_label_3.config(text=dealer_card3)
+                    dealer_label_3.config(text=dealer_card[0])
                     dealer_spot += 1
                 elif dealer_spot == 3:
-                    dealer_label_4.config(text=dealer_card4)
+                    dealer_label_4.config(text=dealer_card[0])
                     dealer_spot += 1
-                elif player_spot == 4:
-                    dealer_label_5.config(text=dealer_card5)
+                elif dealer_spot == 4:
+                    dealer_label_5.config(text=dealer_card[0])
                     dealer_spot += 1
                     
 
@@ -500,20 +500,20 @@ def Blackjack():
                 global player_card1, player_card2, player_card3, player_card4, player_card5
                 
                 if player_spot == 0:
-                    player_label_1.config(image=player_card1)
+                    player_label_1.config(text=player_card[0])
                     #increment player spot counter
                     player_spot += 1
                 elif player_spot == 1:
-                    player_label_2.config(text=player_card2)
+                    player_label_2.config(text=player_card[0])
                     player_spot += 1
                 elif player_spot == 2:
-                    player_label_3.config(text=player_card3)
+                    player_label_3.config(text=player_card[0])
                     player_spot += 1
                 elif player_spot == 3:
-                    player_label_4.config(text=player_card4)
+                    player_label_4.config(text=player_card[0])
                     player_spot += 1
                 elif player_spot == 4:
-                    player_label_5.config(text=player_card5)
+                    player_label_5.config(text=player_card[0])
                     player_spot += 1
                     
 
@@ -618,18 +618,5 @@ BLACKJACKbutton = tk.Button(
     )
 
 BLACKJACKbutton.grid(row=1, column=1, rowspan=2, pady=30, padx=10)
-
-SETTINGSbutton = tk.Button(
-    root, 
-    text= "SETTINGS",
-    font="fixedsys 25 bold",
-    bg="#FAF0CA",
-    fg="#1F3B4D",
-    borderwidth=0,
-    padx=85,
-    pady=50, #opens Blackjack game
-    )
-
-SETTINGSbutton.grid(row=3, column=1, rowspan=2, pady=30, padx=10)
 
 root.mainloop()
