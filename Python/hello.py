@@ -1,16 +1,19 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
+import random
 
 root = tk.Tk()
 root.title("GAMES COMPENDIUM")
-root.geometry("1000x800")
+root.geometry("1000x800") #setting window size for menu (unchangeable)
 root.resizable(False, False)
-root.configure(bg='#1F3B4D')
+root.configure(bg='#1F3B4D') #setting background color for menu
 
+#Creating the Title of the main menu
 Title = tk.Label(root, text="GAMES COMPENDIUM", font=("fixedsys 40 bold"), bg="#FAF0CA", fg="#1F3B4D", padx=40, pady=20,)
 Title.grid(row=0, column=0, columnspan=3, pady=30, padx=200)
 
+#Create Tic Tac Toe game as function
 def TicTacToe():
     TicTacToe = tk.Toplevel(root)
     TicTacToe.title('TIC TAC TOE')
@@ -21,7 +24,7 @@ def TicTacToe():
 
 
 
-    #disable all buttons
+    #disable all buttons function
     def disable_all_buttons():
         b1.config(state=DISABLED)
         b2.config(state=DISABLED)
@@ -38,7 +41,7 @@ def TicTacToe():
         global winner
         winner = False
 
-        if b1["text"] == "X" and b2["text"] == "X" and b3["text"] == "X":
+        if b1["text"] == "X" and b2["text"] == "X" and b3["text"] == "X": #checking if winner is present (repeated for both X and O)
             b1.config(bg="lightgreen")
             b2.config(bg="lightgreen")
             b3.config(bg="lightgreen")
@@ -167,7 +170,7 @@ def TicTacToe():
             messagebox.showinfo("TIC TAC TOE", "O wins!")
             disable_all_buttons()
 
-    #button clicked function
+    #button clicked function (showing either X or O)
     def b_click(b):
         global clicked, count
 
@@ -182,7 +185,7 @@ def TicTacToe():
             count += 1
             checkwinner()
         else:
-            messagebox.showerror("TIC TAC TOE", "Box already selected\nPick another box")
+            messagebox.showerror("TIC TAC TOE", "Box already selected\nPick another box") #if box already selected, error message shows)
 
 
     #restarting game function
@@ -220,8 +223,8 @@ def TicTacToe():
 
 
     #create menu for start/reset button
-    my_menu = Menu(root)
-    root.config(menu=my_menu)
+    my_menu = Menu(TicTacToe)
+    TicTacToe.config(menu=my_menu)
 
     #creating the options
     options_menu = Menu(my_menu, tearoff=False)
@@ -232,6 +235,7 @@ def TicTacToe():
 
     #Made using youtube tutorial by Codemy.com
 
+#Creating the button to open Tic Tac Toe
 TicTacToebutton = tk.Button(
     root, 
     text= "TIC TAC TOE",
@@ -241,9 +245,176 @@ TicTacToebutton = tk.Button(
     borderwidth=0,
     padx=35,
     pady=50,
-    command=TicTacToe
+    command=TicTacToe #opens Tic Tac Toe game
     )
 
-TicTacToebutton.grid(row=1, column=0, rowspan=2, pady=0, padx=10)
+TicTacToebutton.grid(row=1, column=0, rowspan=2, pady=0, padx=10) #positioning the button
+
+
+#SNAKE GAME
+def Snake():
+    Snake = tk.Toplevel(root)
+    Snake.title('Snake Game')
+    Snake.resizable(False, False)
+
+    ROWS = 20
+    COLS = 20
+    TILE_SIZE = 20
+
+    WINDOW_WIDTH = TILE_SIZE * ROWS
+    WINDOW_HEIGHT = TILE_SIZE * COLS
+
+    class Tile:
+        def __init__(self, x, y):
+            self.x = x
+            self.y = y
+    
+    #Creating + customizing the window
+    canvas = tk.Canvas(Snake, bg = "black", width = WINDOW_WIDTH, height = WINDOW_HEIGHT)
+    canvas.pack()
+    Snake.update()
+
+    #Code to center the window
+    window_width = Snake.winfo_width()
+    window_height = Snake.winfo_height()
+    screen_width = Snake.winfo_screenwidth()
+    screen_height = Snake.winfo_screenheight()
+
+    window_x = int((screen_width/2) - (window_width/2))
+    window_y = int((screen_height/2) - (window_height/2))
+
+    Snake.geometry(f"{window_width}x{window_height}+{window_x}+{window_y}")
+
+    #creating the game
+    snake = Tile(5*TILE_SIZE, 5*TILE_SIZE) #The snake's head (one tile)
+    food = Tile(10*TILE_SIZE, 10*TILE_SIZE)
+    snake_body = [] #multiple snake tiles
+    velocityX = 0
+    velocityY = 0
+    game_over = False
+    score = 0
+
+    def change_direction(e): #e for event
+        #print(e)
+        #print(e.keysym)
+        nonlocal velocityX, velocityY, game_over
+        if (game_over):
+            return
+
+        if (e.keysym == "Up" and velocityY != 1):
+            velocityX = 0
+            velocityY = -1
+        elif (e.keysym == "Down" and velocityY != -1):
+            velocityX = 0
+            velocityY = 1
+        elif (e.keysym == "Left" and velocityX != 1):
+            velocityX = -1
+            velocityY = 0
+        elif (e.keysym == "Right" and velocityX != -1):
+            velocityX = 1
+            velocityY = 0
+
+    def move():
+        nonlocal snake, food, snake_body, game_over, score
+        if (game_over):
+            return
+        
+        if (snake.x < 0 or snake.x >= WINDOW_WIDTH or snake.y < 0 or snake.y >= WINDOW_HEIGHT):
+            game_over = True
+            return
+        
+        for tile in snake_body:
+            if (snake.x == tile.x and snake.y == tile.y):
+                game_over = True
+                return
+
+        #Snake head touching food
+        if (snake.x == food.x and snake.y == food.y):
+            snake_body.append(Tile(food.x, food.y))
+            food.x = random.randint(0, COLS-1) * TILE_SIZE
+            food.y = random.randint(0, ROWS-1) * TILE_SIZE
+            score += 1
+
+        #changing the snake body
+        for i in range(len(snake_body)-1, -1, -1):
+            tile = snake_body[i]
+            if (i == 0):
+                tile.x = snake.x
+                tile.y = snake.y
+            else:
+                prev_tile = snake_body[i-1]
+                tile.x = prev_tile.x
+                tile.y = prev_tile.y
+
+        snake.x += velocityX * TILE_SIZE
+        snake.y += velocityY * TILE_SIZE
+    
+    def draw():
+        nonlocal snake, food, snake_body, game_over, score
+        move()
+
+        canvas.delete("all")
+
+        #drawing the food
+        canvas.create_rectangle(food.x, food.y, food.x + TILE_SIZE, food.y + TILE_SIZE, fill = "red")
+        
+        #drawing the snake
+        canvas.create_rectangle(snake.x, snake.y, snake.x + TILE_SIZE, snake.y + TILE_SIZE, fill = "green")
+
+        for tile in snake_body:
+            canvas.create_rectangle(tile.x, tile.y, tile.x + TILE_SIZE, tile.y + TILE_SIZE, fill = "green")
+
+        if (game_over):
+            canvas.create_text(WINDOW_WIDTH/2, WINDOW_HEIGHT/2, font = "fixedsys 30 bold", text = f"GAME OVER: {score}", fill = "white")
+        else:
+            canvas.create_text(30, 20, font = "fixedsys 15", text = f"Score: {score}", fill = "white")
+
+        Snake.after(100, draw) #redraw every 100ms (0.1 seconds)
+
+    draw()
+
+    Snake.bind("<KeyRelease>", change_direction)
+
+
+
+Snakebutton = tk.Button(
+    root, 
+    text= "SNAKE GAME",
+    font="fixedsys 25 bold",
+    bg="#FAF0CA",
+    fg="#1F3B4D",
+    borderwidth=0,
+    padx=47,
+    pady=50,
+    command=Snake #opens Snake game
+    )
+
+Snakebutton.grid(row=3, column=0, rowspan=2, pady=30, padx=10)
+
+BLACKJACKbutton = tk.Button(
+    root, 
+    text= "BLACKJACK GAME",
+    font="fixedsys 25 bold",
+    bg="#FAF0CA",
+    fg="#1F3B4D",
+    borderwidth=0,
+    padx=10,
+    pady=50, #opens Blackjack game
+    )
+
+BLACKJACKbutton.grid(row=1, column=1, rowspan=2, pady=30, padx=10)
+
+SETTINGSbutton = tk.Button(
+    root, 
+    text= "SETTINGS",
+    font="fixedsys 25 bold",
+    bg="#FAF0CA",
+    fg="#1F3B4D",
+    borderwidth=0,
+    padx=85,
+    pady=50, #opens Blackjack game
+    )
+
+SETTINGSbutton.grid(row=3, column=1, rowspan=2, pady=30, padx=10)
 
 root.mainloop()
